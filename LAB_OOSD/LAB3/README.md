@@ -21,9 +21,9 @@
 - [x] **Yêu cầu 3:** [Mô tả chi tiết công việc/tính năng đã làm]
 
 ## 5. Kết quả đạt được
-* **Mô tả ngắn:** [Nêu tổng quan kết quả bài làm, ứng dụng đã chạy thành công các chức năng nào]
+* **Mô tả ngắn:** Chỉ chạy được giao diện có kết nối csdl , chưa viết xong code xử lí ghi dữ liệu vào csdl
 * **Hình ảnh minh họa:**
-  ![Mô tả ảnh 1](./images/demo1.png)
+  ![Mô tả ảnh 1](./images/loi1.png)
   ![Mô tả ảnh 2](./images/demo2.png)
 
 ## 6. Lỗi gặp phải & Cách khắc phục

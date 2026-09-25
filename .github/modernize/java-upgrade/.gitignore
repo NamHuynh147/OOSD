@@ -19,3 +19,57 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+
+# Debug / Release
+Debug/
+Release/
+x64/
+x86/
+
+# NuGet
+packages/
+*.nupkg
+
+# Test results
+TestResults/
+*.trx
+
+# Code coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Logs
+*.log
+
+# Publish output
+publish/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# User-specific project files
+*.csproj.user
+*.rsuser

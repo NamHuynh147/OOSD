@@ -1,5 +1,4 @@
-﻿using Form_QLKS;
-using System;
+﻿using System;
 using System.Data;
 using System.Windows.Forms;
 
@@ -12,63 +11,59 @@ namespace Form_QLKS
             InitializeComponent();
         }
 
-        // ==============================
-        // LOAD FORM
-        // ==============================
-        private void FrmPhongTienNghi_Load(object sender, EventArgs e)
+        private void FrmPhongTienNghi_Load(object? sender, EventArgs e)
         {
             LoadData();
         }
 
-        // ==============================
-        // LOAD DANH SÁCH PHÒNG
-        // ==============================
         private void LoadData()
         {
             try
             {
                 string sql = @"
                     SELECT
-                        SoPhong AS [Phòng],
-                        KhuVuc AS [Khu],
-                        SoNguoiToiDa AS [Sức chứa],
-                        DonGiaNgay AS [Đơn giá],
-                        TrangThai AS [Trạng thái]
-                    FROM Phong
-                    ORDER BY SoPhong";
+                        p.SoPhong AS Phong,
+                        k.TenKhuVuc AS Khu,
+                        p.SoNguoiToiDa AS SucChua,
+                        p.DonGiaNgay AS DonGia,
+                        p.TrangThai AS TrangThai
+                    FROM Phong p 
+                    LEFT JOIN KhuVuc k
+                        ON p.MaKhuVuc = k.MaKhuVuc
+                    ORDER BY p.SoPhong";
 
-                DataTable dt = Db.Query(sql);
+                DataTable dt = Db.GetData(sql);
 
-                dgvPhong.DataSource = null;
                 dgvPhong.DataSource = dt;
 
-                // Không cho DataGridView tự tạo lại cột
-                // vì Designer đã tạo sẵn 5 cột.
-                if (dgvPhong.Columns.Count >= 5)
-                {
-                    dgvPhong.Columns[0].HeaderText = "Phòng";
-                    dgvPhong.Columns[1].HeaderText = "Khu";
-                    dgvPhong.Columns[2].HeaderText = "Sức chứa";
-                    dgvPhong.Columns[3].HeaderText = "Đơn giá";
-                    dgvPhong.Columns[4].HeaderText = "Trạng thái";
-                }
+                // Đặt lại tên hiển thị cho các cột
+                if (dgvPhong.Columns["Phong"] != null)
+                    dgvPhong.Columns["Phong"].HeaderText = "Phòng";
+
+                if (dgvPhong.Columns["Khu"] != null)
+                    dgvPhong.Columns["Khu"].HeaderText = "Khu";
+
+                if (dgvPhong.Columns["SucChua"] != null)
+                    dgvPhong.Columns["SucChua"].HeaderText = "Sức chứa";
+
+                if (dgvPhong.Columns["DonGia"] != null)
+                    dgvPhong.Columns["DonGia"].HeaderText = "Đơn giá";
+
+                if (dgvPhong.Columns["TrangThai"] != null)
+                    dgvPhong.Columns["TrangThai"].HeaderText = "Trạng thái";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Không thể tải danh sách phòng!\n\n" + ex.Message,
+                    "Lỗi tải danh sách phòng:\n" + ex.Message,
                     "Lỗi",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
 
-        // ==============================
-        // CLICK LẬP PHIẾU
-        // ==============================
-        private void btnLapPhieu_Click(object sender, EventArgs e)
+        private void btnLapPhieu_Click(object? sender, EventArgs e)
         {
-            // Kiểm tra dữ liệu
             if (string.IsNullOrWhiteSpace(txtPhieuLapDat.Text))
             {
                 MessageBox.Show(
@@ -107,36 +102,50 @@ namespace Form_QLKS
 
             try
             {
-                string soPhieu = txtPhieuLapDat.Text.Trim();
-                string maTienNghi = txtTienNghi.Text.Trim();
-                string soPhong = txtPhongBottom.Text.Trim();
-                string tinhTrang = txtTinhTrang.Text.Trim();
+                string sql = @"
+            INSERT INTO PhieuLapDat
+            (
+                SoPhieuLapDat,
+                MaTienNghi,
+                SoPhong,
+                NgayLap,
+                TinhTrang
+            )
+            VALUES
+            (
+                @SoPhieuLapDat,
+                @MaTienNghi,
+                @SoPhong,
+                @NgayLap,
+                @TinhTrang
+            )";
 
-                // Tránh lỗi khi dữ liệu có dấu '
-                soPhieu = soPhieu.Replace("'", "''");
-                maTienNghi = maTienNghi.Replace("'", "''");
-                soPhong = soPhong.Replace("'", "''");
-                tinhTrang = tinhTrang.Replace("'", "''");
+                var parameters = new[]
+                {
+            new Microsoft.Data.SqlClient.SqlParameter(
+                "@SoPhieuLapDat",
+                txtPhieuLapDat.Text.Trim()),
 
-                string sql = $@"
-                    INSERT INTO PhieuLapDat
-                    (
-                        SoPhieuLapDat,
-                        MaTienNghi,
-                        SoPhong,
-                        TinhTrang
-                    )
-                    VALUES
-                    (
-                        '{soPhieu}',
-                        '{maTienNghi}',
-                        '{soPhong}',
-                        '{tinhTrang}'
-                    )";
+            new Microsoft.Data.SqlClient.SqlParameter(
+                "@MaTienNghi",
+                txtTienNghi.Text.Trim()),
 
-                int result = Db.Execute(sql);
+            new Microsoft.Data.SqlClient.SqlParameter(
+                "@SoPhong",
+                txtPhongBottom.Text.Trim()),
 
-                if (result > 0)
+            new Microsoft.Data.SqlClient.SqlParameter(
+                "@NgayLap",
+                DateTime.Now),
+
+            new Microsoft.Data.SqlClient.SqlParameter(
+                "@TinhTrang",
+                txtTinhTrang.Text.Trim())
+        };
+
+                int rows = Db.Execute(sql, parameters);
+
+                if (rows > 0)
                 {
                     MessageBox.Show(
                         "Lập phiếu lắp đặt thành công!",
@@ -145,31 +154,19 @@ namespace Form_QLKS
                         MessageBoxIcon.Information);
 
                     ClearInput();
-
                     LoadData();
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Không thể lập phiếu lắp đặt!",
-                        "Thông báo",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Lỗi khi lập phiếu lắp đặt:\n\n" + ex.Message,
+                    "Lỗi lập phiếu:\n" + ex.Message,
                     "Lỗi",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
 
-        // ==============================
-        // XÓA DỮ LIỆU NHẬP
-        // ==============================
         private void ClearInput()
         {
             txtPhieuLapDat.Clear();
@@ -180,22 +177,25 @@ namespace Form_QLKS
             txtPhieuLapDat.Focus();
         }
 
-        // ==============================
-        // CLICK VÀO PHÒNG TRÊN GRID
-        // ==============================
-        private void dgvPhong_CellClick(object sender, DataGridViewCellEventArgs e)
+        private string GetConnectionString()
         {
-            if (e.RowIndex < 0)
-                return;
+            return @"Server=MSI\MSSQLSERVER03;
+                     Database=QuanLyKhachSan;
+                     Trusted_Connection=True;
+                     TrustServerCertificate=True;";
+        }
 
-            if (dgvPhong.Rows[e.RowIndex].Cells.Count < 1)
-                return;
-
-            object value = dgvPhong.Rows[e.RowIndex].Cells[0].Value;
-
-            if (value != null)
+        // Add this method to handle the DataGridView CellClick event
+        private void dgvPhong_CellClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            // Example: Select the clicked row and populate the top input fields with its data
+            if (e.RowIndex >= 0 && dgvPhong.Rows.Count > e.RowIndex)
             {
-                txtPhongBottom.Text = value.ToString();
+                DataGridViewRow row = dgvPhong.Rows[e.RowIndex];
+                txtSoPhong.Text = row.Cells["colPhong"].Value?.ToString() ?? string.Empty;
+                txtKhuVuc.Text = row.Cells["colKhu"].Value?.ToString() ?? string.Empty;
+                txtSoNguoiToiDa.Text = row.Cells["colSucChua"].Value?.ToString() ?? string.Empty;
+                txtDonGiaNgay.Text = row.Cells["colDonGia"].Value?.ToString() ?? string.Empty;
             }
         }
     }

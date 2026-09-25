@@ -17,7 +17,7 @@ namespace Form_QLKS
             dgvKhuVuc.DataSource = Db.Query(
                 "SELECT MaKhuVuc AS [Mã Khu], " +
                 "TenKhuVuc AS [Tên Khu Vực] " +
-                "FROM KhuVuc"
+                "FROM TenKhuVuc"
             );
 
             dgvDichVu.DataSource = Db.Query(
@@ -38,7 +38,7 @@ namespace Form_QLKS
         private void btnThemKhu_Click(object sender, EventArgs e)
         {
             string sql =
-                "INSERT INTO KhuVuc(MaKhuVuc, TenKhuVuc) " +
+                "INSERT INTO TenKhuVuc(MaKhuVuc, TenKhuVuc) " +
                 "VALUES(@Ma, @Ten)";
 
             int result = Db.Execute(

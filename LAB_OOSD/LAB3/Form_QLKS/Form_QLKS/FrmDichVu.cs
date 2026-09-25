@@ -34,10 +34,10 @@ namespace Form_QLKS
             {
                 string sql = @"
                     SELECT
-                        SoPhieu AS [Số phiếu],
+                        SoPhieuDat AS [Số phiếu],
                         SoPhong AS [Phòng],
                         NgaySuDung AS [Ngày],
-                        MaDichVu AS [Dịch vụ],
+                        MaDV AS [Dịch vụ],
                         SoLuong AS [Số lượng],
                         DonGia AS [Đơn giá],
                         ThanhTien AS [Thành tiền]
@@ -162,8 +162,8 @@ namespace Form_QLKS
                 string sqlGia = $@"
                     SELECT TOP 1 DonGia
                     FROM DichVu
-                    WHERE MaDichVu = '{dichVu}'
-                       OR TenDichVu = '{dichVu}'";
+                    WHERE MaDV = '{dichVu}'
+                       OR TenDV = '{dichVu}'";
 
                 DataTable dtGia = Db.Query(sqlGia);
 
@@ -184,10 +184,10 @@ namespace Form_QLKS
                 string sql = $@"
                     INSERT INTO SuDungDichVu
                     (
-                        SoPhieu,
+                        SoPhieuDat,
                         SoPhong,
                         NgaySuDung,
-                        MaDichVu,
+                        MaDV,
                         SoLuong,
                         DonGia,
                         ThanhTien

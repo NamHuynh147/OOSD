@@ -96,7 +96,7 @@ namespace Form_QLKS
                         MucDo AS [Mức độ],
                         SoTien AS [Số tiền]
                     FROM DenBu
-                    WHERE SoPhieu = '" +
+                    WHERE SoPhieuDat = '" +
                     txtPhieuDangO.Text.Trim().Replace("'", "''") +
                     @"'
                     ORDER BY MaTienNghi";
@@ -220,7 +220,7 @@ namespace Form_QLKS
                 string sql = $@"
                     INSERT INTO DenBu
                     (
-                        SoPhieu,
+                        SoPhieuDat,
                         MucDo,
                         SoTien
                     )
@@ -339,7 +339,7 @@ namespace Form_QLKS
                 string sqlDichVu = $@"
                     SELECT ISNULL(SUM(ThanhTien), 0)
                     FROM SuDungDichVu
-                    WHERE SoPhieu = '{phieu}'";
+                    WHERE SoPhieuDat = '{phieu}'";
 
                 DataTable dtDichVu = Db.Query(sqlDichVu);
 
@@ -357,7 +357,7 @@ namespace Form_QLKS
                 string sqlDenBu = $@"
                     SELECT ISNULL(SUM(SoTien), 0)
                     FROM DenBu
-                    WHERE SoPhieu = '{phieu}'";
+                    WHERE SoPhieuDat = '{phieu}'";
 
                 DataTable dtDenBu = Db.Query(sqlDenBu);
 

@@ -41,7 +41,7 @@ namespace Form_QLKS
                 string sql = @"
                     SELECT
                         SoPhong AS [Phòng],
-                        KhuVuc AS [Khu],
+                        TenKhuVuc AS [Khu],
                         SoNguoiToiDa AS [Sức chứa],
                         DonGiaNgay AS [Đơn giá]
                     FROM Phong

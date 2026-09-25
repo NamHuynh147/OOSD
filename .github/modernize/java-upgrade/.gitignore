@@ -73,3 +73,9 @@ Thumbs.db
 # User-specific project files
 *.csproj.user
 *.rsuser
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.csproj.user

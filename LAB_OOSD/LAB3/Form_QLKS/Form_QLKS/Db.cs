@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Data;
+﻿using System.Data;
 using Microsoft.Data.SqlClient;
 
 namespace Form_QLKS
@@ -12,32 +6,39 @@ namespace Form_QLKS
     public static class Db
     {
         private static readonly string connectionString =
-            @"Server= MSI\MSSQLSERVER03;
+            @"Server=MSI\MSSQLSERVER03;
               Database=QuanLyKhachSan;
               Trusted_Connection=True;
               TrustServerCertificate=True;";
 
+        // Lấy dữ liệu dạng DataTable
         public static DataTable Query(string sql)
         {
+            DataTable table = new DataTable();
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    using (SqlDataAdapter adapter =
-                           new SqlDataAdapter(cmd))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {
-                        DataTable table = new DataTable();
-
                         adapter.Fill(table);
-
-                        return table;
                     }
                 }
             }
+
+            return table;
         }
 
+        // Giữ hàm này để tương thích với các form đang dùng Db.GetData(...)
+        public static DataTable GetData(string sql)
+        {
+            return Query(sql);
+        }
+
+        // INSERT / UPDATE / DELETE
         public static int Execute(
             string sql,
             params SqlParameter[] parameters)
@@ -48,7 +49,7 @@ namespace Form_QLKS
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    if (parameters != null)
+                    if (parameters != null && parameters.Length > 0)
                     {
                         cmd.Parameters.AddRange(parameters);
                     }

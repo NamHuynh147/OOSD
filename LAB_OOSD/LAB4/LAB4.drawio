@@ -337,11 +337,6 @@
             <mxGeometry height="32" width="134" x="35.5" y="565" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Quản lý đơn hàng" plantUmlId="uc_9" plantUmlBaseStyle="ellipse;html=1;fillColor=#F1F1F1;strokeColor=#181818;whiteSpace=wrap;fontColor=#000000;fontSize=14;" plantUmlBaseValue="Quản lý đơn hàng" id="DrqaP8HWIUEbNAXhF89h-11">
-          <mxCell parent="DrqaP8HWIUEbNAXhF89h-2" style="ellipse;html=1;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1">
-            <mxGeometry height="35" width="149" x="316.5" y="550" as="geometry" />
-          </mxCell>
-        </UserObject>
         <UserObject label="Quản lý sản phẩm" plantUmlId="uc_10" plantUmlBaseStyle="ellipse;html=1;fillColor=#F1F1F1;strokeColor=#181818;whiteSpace=wrap;fontColor=#000000;fontSize=14;" plantUmlBaseValue="Quản lý sản phẩm" id="DrqaP8HWIUEbNAXhF89h-12">
           <mxCell parent="DrqaP8HWIUEbNAXhF89h-2" style="ellipse;html=1;whiteSpace=wrap;fontSize=14;fontStyle=1" vertex="1">
             <mxGeometry height="35" width="151" x="119" y="630" as="geometry" />
@@ -423,16 +418,6 @@
             <mxGeometry height="17" width="192" x="30" y="660" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="" plantUmlId="actor_23" plantUmlBaseStyle="shape=umlActor;html=1;fillColor=#F1F1F1;strokeColor=#181818;fontColor=#000000;fontSize=14;" plantUmlBaseValue="" id="DrqaP8HWIUEbNAXhF89h-25">
-          <mxCell parent="DrqaP8HWIUEbNAXhF89h-1" style="shape=umlActor;html=1;fontSize=14;fontStyle=1" vertex="1">
-            <mxGeometry height="60" width="40" x="106" y="722" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Hệ thống E-SHOPPING" plantUmlId="actorlbl_24" plantUmlBaseStyle="text;html=1;align=center;verticalAlign=top;fontColor=#000000;fontSize=14;" plantUmlBaseValue="Quản trị viên" id="DrqaP8HWIUEbNAXhF89h-26">
-          <mxCell parent="DrqaP8HWIUEbNAXhF89h-1" style="text;html=1;align=center;verticalAlign=top;fontSize=14;fontStyle=1" vertex="1">
-            <mxGeometry height="17" width="99" x="76.5" y="782" as="geometry" />
-          </mxCell>
-        </UserObject>
         <UserObject label="" plantUmlId="rel_25" plantUmlBaseStyle="endArrow=block;endFill=1;strokeColor=#181818;fontColor=#000000;fontSize=11;edgeStyle=none;rounded=0;html=1;curved=0;endSize=6;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" plantUmlBaseValue="" id="DrqaP8HWIUEbNAXhF89h-27">
           <mxCell edge="1" parent="DrqaP8HWIUEbNAXhF89h-1" style="endArrow=block;endFill=1;fontColor=#000000;fontSize=11;edgeStyle=none;rounded=0;html=1;curved=0;endSize=6;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;fontStyle=1" target="DrqaP8HWIUEbNAXhF89h-3">
             <mxGeometry relative="1" as="geometry">
@@ -504,8 +489,10 @@
           </mxCell>
         </UserObject>
         <UserObject label="" plantUmlId="rel_35" plantUmlBaseStyle="endArrow=block;endFill=1;strokeColor=#181818;fontColor=#000000;fontSize=11;edgeStyle=none;rounded=0;html=1;curved=0;endSize=6;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" plantUmlBaseValue="" id="DrqaP8HWIUEbNAXhF89h-37">
-          <mxCell edge="1" parent="DrqaP8HWIUEbNAXhF89h-1" source="DrqaP8HWIUEbNAXhF89h-25" style="endArrow=block;endFill=1;fontColor=#000000;fontSize=11;edgeStyle=none;rounded=0;html=1;curved=0;endSize=6;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;fontStyle=1" target="DrqaP8HWIUEbNAXhF89h-11">
-            <mxGeometry relative="1" as="geometry" />
+          <mxCell edge="1" parent="DrqaP8HWIUEbNAXhF89h-1" source="DrqaP8HWIUEbNAXhF89h-25" style="endArrow=block;endFill=1;fontColor=#000000;fontSize=11;edgeStyle=none;rounded=0;html=1;curved=0;endSize=6;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;fontStyle=1">
+            <mxGeometry relative="1" as="geometry">
+              <mxPoint x="586.8804211444558" y="649.5265730790102" as="targetPoint" />
+            </mxGeometry>
           </mxCell>
         </UserObject>
         <UserObject label="" plantUmlId="rel_37" plantUmlBaseStyle="endArrow=block;endFill=1;strokeColor=#181818;fontColor=#000000;fontSize=11;edgeStyle=none;rounded=0;html=1;curved=0;endSize=6;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" plantUmlBaseValue="" id="DrqaP8HWIUEbNAXhF89h-39">

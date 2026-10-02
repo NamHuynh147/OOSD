@@ -282,8 +282,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="oX4GjbMune7mFZ4ypKOp" name="emailUC">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <diagram id="oX4GjbMune7mFZ4ypKOp" name="UC10">
+    <mxGraphModel dx="1717" dy="872" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -292,7 +292,7 @@
             <mxGeometry as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="UC Đặt hàng" plantUmlId="rect_0" plantUmlBaseStyle="swimlane;collapsible=0;startSize=26;fillColor=none;strokeColor=#181818;fontColor=#000000;fontSize=13;fontStyle=1;whiteSpace=wrap;" plantUmlBaseValue="HỆ THỐNG e-SHOPPING" id="DrqaP8HWIUEbNAXhF89h-2">
+        <UserObject label="UC Đặt mua hàng" plantUmlId="rect_0" plantUmlBaseStyle="swimlane;collapsible=0;startSize=26;fillColor=none;strokeColor=#181818;fontColor=#000000;fontSize=13;fontStyle=1;whiteSpace=wrap;" plantUmlBaseValue="HỆ THỐNG e-SHOPPING" id="DrqaP8HWIUEbNAXhF89h-2">
           <mxCell parent="DrqaP8HWIUEbNAXhF89h-1" style="swimlane;collapsible=0;startSize=26;fontSize=13;fontStyle=1;whiteSpace=wrap;" vertex="1">
             <mxGeometry height="740" width="618" x="250" y="70" as="geometry" />
           </mxCell>

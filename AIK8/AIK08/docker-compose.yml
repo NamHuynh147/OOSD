@@ -1,0 +1,19 @@
+# Chạy nhanh PostgreSQL kèm dữ liệu mẫu:  docker compose up -d
+# Các file trong ./db chạy theo thứ tự tên (01_schema.sql rồi 02_seed.sql) ở lần khởi tạo đầu tiên.
+# Làm lại từ đầu: docker compose down -v && docker compose up -d
+services:
+  db:
+    image: postgres:16
+    container_name: aik08-db
+    environment:
+      POSTGRES_USER: aik08
+      POSTGRES_PASSWORD: aik08
+      POSTGRES_DB: aik08
+    ports:
+      - "5432:5432"   # nếu máy đã có PostgreSQL ở cổng 5432, đổi thành "5433:5432" và nhập cổng 5433 trong form kết nối
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d:ro
+      - aik08-data:/var/lib/postgresql/data
+
+volumes:
+  aik08-data:

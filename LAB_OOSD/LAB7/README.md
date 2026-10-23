@@ -1,4 +1,4 @@
-# LAB 6 – Hệ thống Quản lý Hồ sơ bệnh án của bệnh nhân
+# LAB 7 – Phân tích thiết kế hệ thống và xây dựng giao diện WinForms cho hệ thống quản lý nhân sự công ty sơn Đông Á.
 
 ## 1. Thông tin
 

@@ -5,8 +5,8 @@ Bài thực hành **Lab 8** – Phân tích thiết kế hệ thống và xây d
 |               |                                                           |
 | ------------- | --------------------------------------------------------- |
 | **Sinh viên** | Huỳnh Đại Lục                                             |
-| **MSSV**      | 1250080101                                                |
-| **Công nghệ** | C# WinForms, .NET Framework 4.7.2 / 4.8, SQL Server       |
+| **MSSV**      | 1250080109                                                |
+| **Công nghệ** | C# WinForms, .NET Framework 4.7.2  , SQL Server       |
 | **Công cụ**   | Visual Studio 2022, SQL Server Management Studio, draw.io |
 
 ---

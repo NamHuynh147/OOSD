@@ -3,9 +3,9 @@
 
 | Tên bài lab (có thiết kế) | Nội dung | Link |
 | -------- | -------- | -------- |
-| Lab 1| Row 1, Col 2 |  [lab1](Lab1/Lab1.drawio)|
-| Lab 2 | Row 2, Col 2 | Visit the [Markdown Guide official website](https://www.markdownguide.org) to learn more |
-| Lab 4 | Row 2, Col 2 | [Open Readme](docs/README.md) |
+| Lab 1| Hệ thống thư viện|  [lab1](Lab1/Lab1.drawio)|
+| Lab 2 | Hệ thống thư viện (tt) | [Activity](Lab2/Activity.drawio) \  [Sequence](Lab2/Sequence.drawio)|
+| Lab 4 | Quản lý khách sạn | [Open Readme](docs/README.md) |
 | Lab 6 | Row 2, Col 2 | Row 2, Col 3 |
 | Lab 7 | Row 2, Col 2 | Row 2, Col 3 |
 | Lab 8 | Row 2, Col 2 | Row 2, Col 3 |

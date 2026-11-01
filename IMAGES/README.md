@@ -1,7 +1,7 @@
 ## Tổng hợp phần thiết kế diagram của các bài lab 
 ### Công cụ: draw.io
 
-| Tên bài lab (có thiết kế) | Nội dung | Link |
+| Tên bài lab <br> (có thiết kế) | Nội dung | Link |
 | -------- | -------- | -------- |
 | Lab 1| Hệ thống thư viện|  [Lab 1](Lab1/Lab1.drawio)|
 | Lab 2 | Hệ thống thư viện (tt) | [Activity](Lab2/Activity.drawio) <br> [Sequence](Lab2/Sequence.drawio)|

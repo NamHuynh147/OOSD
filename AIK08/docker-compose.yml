@@ -1,0 +1,115 @@
+# Chạy:  python scripts/init_env.py  &&  docker compose up --build
+# Mọi cổng chỉ mở trên 127.0.0.1 (API chưa có xác thực, không để lộ ra mạng).
+# pgAdmin là tùy chọn:  docker compose --profile tools up
+# Xem trace (Jaeger, UI http://127.0.0.1:16686):
+#   OTEL_EXPORTER=otlp docker compose --profile tracing up --build
+
+x-db-urls: &db-urls
+  OWNER_DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:?chạy python scripts/init_env.py trước}@db:5432/aik08
+  READER_DATABASE_URL: postgresql://aik08_reader:${AIK08_READER_PASSWORD:?chạy python scripts/init_env.py trước}@db:5432/aik08
+  APP_DATABASE_URL: postgresql://aik08_app:${AIK08_APP_PASSWORD:?chạy python scripts/init_env.py trước}@db:5432/aik08
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?chạy python scripts/init_env.py trước}
+      POSTGRES_DB: aik08
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - aik08_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d aik08"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  migrate:
+    build: ./backend
+    command: ["python", "-m", "app.db.migrate", "--seed"]
+    environment: *db-urls
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  backend:
+    build: ./backend
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      <<: *db-urls
+      API_KEYS: ${API_KEYS:?Đặt API_KEYS (>= 16 ký tự) trong môi trường hoặc tệp .env cạnh docker-compose.yml}
+      PUBLIC_BASE_URL: http://127.0.0.1:8000
+      API_ALLOWED_URL_PREFIXES: http://127.0.0.1:8000/demo/
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+      OTEL_EXPORTER: ${OTEL_EXPORTER:-none}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://jaeger:4318}
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request as u; u.urlopen('http://127.0.0.1:8000/health', timeout=3)",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://127.0.0.1:8000
+    ports:
+      - "127.0.0.1:5173:80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  jaeger:
+    profiles: ["tracing"]
+    image: jaegertracing/all-in-one:1.62.0
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    ports:
+      - "127.0.0.1:16686:16686" # giao diện xem trace; cổng OTLP 4318 chỉ dùng trong mạng compose
+
+  pgadmin:
+    profiles: ["tools"]
+    image: dpage/pgadmin4:8.14
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "127.0.0.1:5050:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - aik08_pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  aik08_pgdata:
+  aik08_pgadmin_data:
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1280

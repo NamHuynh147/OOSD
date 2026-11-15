@@ -1,0 +1,34 @@
+classDiagram
+    class AgentSession {
+        uuid id
+        text query
+        status
+        stop_reason
+        max_steps, max_tokens, max_seconds
+        steps_used, tokens_used
+        cancel_requested_at
+    }
+    class PlanStep { int idx; title; goal; status }
+    class Step { int step_no; requested_tool; tool_name; decision; detail }
+    class LlmCall { purpose; provider; model; input_tokens; output_tokens }
+    class Evidence {
+        int seq (E#)
+        source_uri, title, content
+        raw_sha256, content_sha256
+        prev_hash, chain_hash
+        bool flagged
+    }
+    class Report { status; stop_reason; generated_by; markdown }
+    class ReportCitation { int evidence_seq }
+    class AllowedTool { tool_name; enabled }
+    class Document { doc_id; title; category; body; embedding }
+    AgentSession "1" --> "3..6" PlanStep
+    AgentSession "1" --> "0..*" Step
+    AgentSession "1" --> "0..*" LlmCall
+    AgentSession "1" --> "0..*" Evidence
+    AgentSession "1" --> "1" Report : bắt buộc khi kết thúc
+    Step "1" --> "0..*" Evidence : tạo ra
+    Report "1" --> "0..*" ReportCitation
+    ReportCitation --> Evidence
+    Step ..> AllowedTool : kiểm tra allowlist
+    Evidence ..> Document : trích từ

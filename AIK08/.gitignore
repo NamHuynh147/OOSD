@@ -7,7 +7,7 @@ venv/
 .ruff_cache/
 .mypy_cache/
 *.egg-info/
-.docs/
+docs/
 # Bí mật: chỉ các tệp *.example được đưa vào Git
 .env
 .env.*
